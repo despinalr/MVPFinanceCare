@@ -11,4 +11,4 @@ app.get('/', function(req, res) {
         res.sendfile('index.html');
     });
 
-app.listen(5000, process.env.IP);
+app.listen(process.env.PORT, process.env.IP);
