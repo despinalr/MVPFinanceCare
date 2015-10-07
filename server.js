@@ -11,8 +11,12 @@ var mensajeSchema = new mongoose.Schema({
     Email: String,
     Texto: String
 });
+var detalleSchema = new mongoose.Schema({
+    Email: String
+});
 
 var mensaje = mongoose.model('Mensajes', mensajeSchema);
+var detalle = mongoose.model('Detalles', detalleSchema);
 
 mongoose.connection.once('open', function callback() {
     console.log('Conectado!!!');
@@ -31,7 +35,9 @@ app.get('/', function(req, res) {
     
 app.get('/statistics', function(req, res) {
         mensaje.find({}, function(err, mensajes) {
-                res.render('statistics.html', { mensajes: mensajes.length } );
+                detalle.find({}, function(err, detalles) {
+                        res.render('statistics.html', { mensajes: mensajes.length, detalles: detalles.length } );
+                });
         });
     });
 	
@@ -42,14 +48,27 @@ app.post('/mail', function(req, res) {
         var instance = new mensaje({ Email: req.body.email, Texto: req.body.text });
         instance.save(function(err) {
                 if(!err) {
-                        sendEmailMessage(req.body.email, req.body.text, function() {
+                        sendEmailMessage(req.body.email, 'Te han recomendado FinanceCare!!!', 'Un Amigo te ha recomendado FinanceCare y te envía el siguiente Mensaje: ' + req.body.text, function() {
                                 res.sendfile('index.html');
                         });
                 }
         });
     });
     
-var sendEmailMessage = function(email, text, callback) {
+app.post('/detalle', function(req, res) {
+        console.log("Email: " + req.body.email);
+        
+        var instance = new detalle({ Email: req.body.email });
+        instance.save(function(err) {
+                if(!err) {
+                        sendEmailMessage(req.body.email, 'Pronto te enviaremos más detalle sobre FinanceCare!!!', 'El equipo de FinanceCare agradece tu interés. Pronto te estaremos enviando mas detalle sobre nosotros y cómo te podemos ayudar!!!', function() {
+                                res.sendfile('index.html');
+                        });
+                }
+        });
+    });
+    
+var sendEmailMessage = function(email, subjectText, text, callback) {
 	var smtpTransport = nodemailer.createTransport({
         service: "Gmail",
         auth: {
@@ -60,8 +79,8 @@ var sendEmailMessage = function(email, text, callback) {
     var mailOptions = {
         from: 'FinanceCare ✔ <financecaremail@gmail.com>',
 		to: email,
-		subject: 'Te han recomendado FinanceCare!!!',
-		text: 'Un Amigo te ha recomendado FinanceCare y te envía el siguiente Mensaje: ' + text
+		subject: subjectText,
+		text: text
     }
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
