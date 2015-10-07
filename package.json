@@ -5,7 +5,11 @@
   "main": "index.html",
   "dependencies": {
     "consolidate": "^0.13.1",
-    "express": "*"
+    "express": "*",
+    "body-parser": "*",
+	  "mongoose": "*",
+	  "swig": "*",
+	  "nodemailer" : "*"
   },
   "author": "Finance Care",
   "license": "CC0"
