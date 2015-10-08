@@ -49,7 +49,7 @@ app.post('/mail', function(req, res) {
         instance.save(function(err) {
                 if(!err) {
                         sendEmailMessage(req.body.email, 'Te han recomendado FinanceCare!!!', 'Un Amigo te ha recomendado FinanceCare y te envía el siguiente Mensaje: ' + req.body.text, function() {
-                                res.sendfile('index.html');
+                                res.redirect('/');
                         });
                 }
         });
@@ -62,7 +62,7 @@ app.post('/detalle', function(req, res) {
         instance.save(function(err) {
                 if(!err) {
                         sendEmailMessage(req.body.email, 'Pronto te enviaremos más detalle sobre FinanceCare!!!', 'El equipo de FinanceCare agradece tu interés. Pronto te estaremos enviando mas detalle sobre nosotros y cómo te podemos ayudar!!!', function() {
-                                res.sendfile('index.html');
+                                res.redirect('/');
                         });
                 }
         });
