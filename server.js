@@ -33,6 +33,14 @@ app.get('/', function(req, res) {
         res.sendfile('index.html');
     });
     
+app.get('/personas', function(req, res) {
+        res.sendfile('usuarios.html');
+    });
+    
+app.get('/empresas', function(req, res) {
+        res.sendfile('clientes.html');
+    });    
+    
 app.get('/statistics', function(req, res) {
         mensaje.find({}, function(err, mensajes) {
                 detalle.find({}, function(err, detalles) {
@@ -55,6 +63,35 @@ app.post('/mail', function(req, res) {
         });
     });
     
+app.post('/mailpersonas', function(req, res) {
+        console.log("Email: " + req.body.email);
+        console.log("Texto: " + req.body.text);
+        
+        var instance = new mensaje({ Email: req.body.email, Texto: req.body.text });
+        instance.save(function(err) {
+                if(!err) {
+                        sendEmailMessage(req.body.email, 'Te han recomendado FinanceCare!!!', 'Un Amigo te ha recomendado FinanceCare y te envía el siguiente Mensaje: ' + req.body.text, function() {
+                                res.redirect('/personas');
+                        });
+                }
+        });
+    });
+    
+app.post('/mailempresas', function(req, res) {
+        console.log("Email: " + req.body.email);
+        console.log("Texto: " + req.body.text);
+        
+        var instance = new mensaje({ Email: req.body.email, Texto: req.body.text });
+        instance.save(function(err) {
+                if(!err) {
+                        sendEmailMessage(req.body.email, 'Te han recomendado FinanceCare!!!', 'Un Amigo te ha recomendado FinanceCare y te envía el siguiente Mensaje: ' + req.body.text, function() {
+                                res.redirect('/empresas');
+                        });
+                }
+        });
+    });
+
+    
 app.post('/detalle', function(req, res) {
         console.log("Email: " + req.body.email);
         
@@ -63,6 +100,32 @@ app.post('/detalle', function(req, res) {
                 if(!err) {
                         sendEmailMessage(req.body.email, 'Pronto te enviaremos más detalle sobre FinanceCare!!!', 'El equipo de FinanceCare agradece tu interés. Pronto te estaremos enviando mas detalle sobre nosotros y cómo te podemos ayudar!!!', function() {
                                 res.redirect('/');
+                        });
+                }
+        });
+    });
+    
+app.post('/detallepersonas', function(req, res) {
+        console.log("Email: " + req.body.email);
+        
+        var instance = new detalle({ Email: req.body.email });
+        instance.save(function(err) {
+                if(!err) {
+                        sendEmailMessage(req.body.email, 'Pronto te enviaremos más detalle sobre FinanceCare!!!', 'El equipo de FinanceCare agradece tu interés. Pronto te estaremos enviando mas detalle sobre nosotros y cómo te podemos ayudar!!!', function() {
+                                res.redirect('/personas');
+                        });
+                }
+        });
+    });
+    
+app.post('/detalleempresas', function(req, res) {
+        console.log("Email: " + req.body.email);
+        
+        var instance = new detalle({ Email: req.body.email });
+        instance.save(function(err) {
+                if(!err) {
+                        sendEmailMessage(req.body.email, 'Pronto te enviaremos más detalle sobre FinanceCare!!!', 'El equipo de FinanceCare agradece tu interés. Pronto te estaremos enviando mas detalle sobre nosotros y cómo te podemos ayudar!!!', function() {
+                                res.redirect('/empresas');
                         });
                 }
         });

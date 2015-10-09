@@ -227,20 +227,51 @@ section#features .media i.fa {
   width: 2.6em;
   text-align: center;
 }
+section#features1 .media i.fa {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  padding: 20px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  width: 2.6em;
+  text-align: center;
+}
 section#features .media .media-heading {
+  padding-top: 10px;
+  font-weight: 300;
+}
+section#features1 .media .media-heading {
   padding-top: 10px;
   font-weight: 300;
 }
 section#features .media .media-body {
   color: #999999;
 }
+section#features1 .media .media-body {
+  color: #999999;
+}
 section#features .media.feature {
+  margin-top: 25px;
+}
+section#features1 .media.feature1 {
   margin-top: 25px;
 }
 section#features .media.feature:first-child {
   margin-top: 0;
 }
+section#features1 .media.feature1:first-child {
+  margin-top: 0;
+}
 section#features img {
+  margin: 0 auto 20px;
+}
+section#features1 img {
   margin: 0 auto 20px;
 }
 section#reviews {
@@ -866,6 +897,30 @@ section#features .media.active i.fa {
   background: #66cdcc;
 }
 section#features .media.active .media-heading {
+  color: #66cdcc;
+}
+section#features1 {
+  background: #f6f6f6;
+}
+section#features1 header h1:after {
+  background: #66cdcc;
+}
+section#features1 .media i.fa {
+  border: 2px solid #66cdcc;
+  color: #66cdcc;
+}
+section#features1 .media:hover i.fa {
+  color: #ffffff;
+  background: #66cdcc;
+}
+section#features1 .media:hover h3 {
+  color: #66cdcc;
+}
+section#features1 .media.active i.fa {
+  color: #ffffff;
+  background: #66cdcc;
+}
+section#features1 .media.active .media-heading {
   color: #66cdcc;
 }
 section#reviews {
